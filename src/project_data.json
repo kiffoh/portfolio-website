@@ -1,0 +1,92 @@
+[
+    {
+      "key": 1,
+      "name": "Messaging App",
+      "screenshotPaths": [
+        {"id": 1, "path": "/messaging-app-screenshots/desktop/sign-up.png", "alt": "Sign-up screen for Messaging App"},
+        {"id": 2, "path": "/messaging-app-screenshots/desktop/log-in.png", "alt": "Log-in screen for Messaging App"},
+        {"id": 3, "path": "/messaging-app-screenshots/desktop/home-screen.png", "alt": "Home screen for Messaging App"},
+        {"id": 4, "path": "/messaging-app-screenshots/desktop/group-profile.png", "alt": "Group profile view in Messaging App"},
+        {"id": 5, "path": "/messaging-app-screenshots/desktop/new-contact.png", "alt": "Adding a new contact in Messaging App"},
+        {"id": 6, "path": "/messaging-app-screenshots/desktop/new-direct-message.png", "alt": "Creating a new direct message in Messaging App"},
+        {"id": 7, "path": "/messaging-app-screenshots/desktop/switching-messages.png", "alt": "Switching between messages in Messaging App"},
+        {"id": 8, "path": "/messaging-app-screenshots/desktop/new-group-message.png", "alt": "Creating a new group message in Messaging App"},
+        {"id": 9, "path": "/messaging-app-screenshots/desktop/new-group-message-2.png", "alt": "New group message view in Messaging App"},
+        {"id": 10, "path": "/messaging-app-screenshots/desktop/sign-out.png", "alt": "Sign-out screen for Messaging App"}
+      ],
+      "liveLink": {"link": "https://messaging-app-client-eight.vercel.app/", "delay": true, "credentials": {"username": "guest", "password": "iamaguest"}},
+      "githubLinks": [
+        "https://github.com/kiffoh/messaging-app-client",
+        "https://github.com/kiffoh/messaging-app-server"
+      ],
+      "brief": "Full-stack web application designed for real-time direct and group messaging.",
+      "description": "Allows users to engage in seamless conversations, manage profiles, and share media, all within a responsive and user-friendly interface. The backend ensures secure authentication using JWT, facilitates smooth user and group management, and guarantees reliable, real-time communication between users, whether for direct messages or group chats. This architecture not only emphasises best practices in database interaction and API design but also ensures scalability and maintainability as the application grows. ajsdf lajks fd;lkasj ;flaj s;f ljaskf k;lasdj;alkj;lsfj d;alskjf;lakj f;lkasj f;a jsdlkfj ;aslkj;klajs km;lkasfmfa;klfda; lsfdj;sal kfj;alfk a;skjldf as;;laksjfa;ml;skfmls;af lkja;fslksa;lk;aslkjf;ams  lkd;lkajfcsaklj ml;akfajm;slkfma ;clsdkfja aksjfd a;slkdfj ma ;lfksd;alkmfa;lkfamc;kld ma;km;alfk mac ma;lskfm ;la;lkf ma; dlam;lkmfa  a;clksd m;lkmf a;kml m; alfm;l"
+    },
+    {
+      "key": 2,
+      "name": "Blog Application",
+      "screenshotPaths": [
+        {"id": 1, "path": "/blog-api-screenshots/desktop/sign-up.png", "alt": "Sign-up page for Blog Application"},
+        {"id": 2, "path": "/blog-api-screenshots/desktop/log-in.png", "alt": "Log-in page for Blog Application"},
+        {"id": 3, "path": "/blog-api-screenshots/desktop/homescreen-not-logged-in.png", "alt": "Home screen when not logged in for Blog Application"},
+        {"id": 4, "path": "/blog-api-screenshots/desktop/post-not-logged-in.png", "alt": "Viewing a post when not logged in on Blog Application"},
+        {"id": 5, "path": "/blog-api-screenshots/desktop/create-post-not-logged-in.png", "alt": "Creating a post when not logged in on Blog Application"},
+        {"id": 6, "path": "/blog-api-screenshots/desktop/homescreen-logged-in.png", "alt": "Home screen when logged in on Blog Application"},
+        {"id": 7, "path": "/blog-api-screenshots/desktop/post-user-not-author.png", "alt": "Viewing a post by another user on Blog Application"},
+        {"id": 8, "path": "/blog-api-screenshots/desktop/create-new-post.png", "alt": "Creating a new post on Blog Application"},
+        {"id": 9, "path": "/blog-api-screenshots/desktop/saved-posts.png", "alt": "Saved posts view on Blog Application"},
+        {"id": 10, "path": "/blog-api-screenshots/desktop/edit-saved-post.png", "alt": "Editing a saved post on Blog Application"}
+      ],
+      "liveLink": {"link": "https://blog-api-kipper.netlify.app/", "delay": true, "credentials": {"username": "guest@gmail.com", "password": "iamaguest"}},
+      "githubLinks": [
+        "https://github.com/kiffoh/blog-api"
+      ],
+      "brief": "A modern blog platform.",
+      "description": "A modern blog platform featuring a clean, responsive UI and a secure REST API with JWT authentication, role-based authorisation and a PostgreSQL database with Prisma ORM."
+    },
+    {
+      "key": 3,
+      "name": "Battleships Game",
+      "screenshotPaths": [
+        {"id": 1, "path": "/battleships-screenshots/desktop/welcome-screen.png", "alt": "Welcome screen for Battleships Game"},
+        {"id": 2, "path": "/battleships-screenshots/desktop/pvp-selection.png", "alt": "Player-vs-player selection screen for Battleships Game"},
+        {"id": 3, "path": "/battleships-screenshots/desktop/pvp-selection-choose-player-name.png", "alt": "Choosing player name for PvP mode in Battleships Game"},
+        {"id": 4, "path": "/battleships-screenshots/desktop/ship-placement.png", "alt": "Ship placement screen for Battleships Game"},
+        {"id": 5, "path": "/battleships-screenshots/desktop/computer-selection.png", "alt": "Computer selection screen for Battleships Game"},
+        {"id": 6, "path": "/battleships-screenshots/desktop/game-in-play.png", "alt": "Game in progress in Battleships Game"},
+        {"id": 7, "path": "/battleships-screenshots/desktop/computer-wins.png", "alt": "Computer wins screen for Battleships Game"},
+        {"id": 8, "path": "/battleships-screenshots/desktop/game-in-play-2.png", "alt": "Alternate view of game in progress (with the computer winning against the player 1 vs 0) in Battleships Game"}
+      ],
+      "liveLink": {"link": "https://kiffoh.github.io/battleships/", "delay": false},
+      "githubLinks": [
+        "https://github.com/kiffoh/battleships"
+      ],
+      "brief": "A browser-based Battleship game in JavaScript emphasising TDD.",
+      "description": "A browser-based Battleship game in JavaScript emphasising TDD."
+    },
+    {
+      "key": 4,
+      "name": "Adventure Game",
+      "screenshotPaths": [
+        {"id": 1, "path": "snake stock photo.jpg"}
+      ],
+      "githubLinks": [
+        "https://github.com/kiffoh/text_based_adventure_game"
+      ],
+      "brief": "A simple text based game similar to dungeon and dragons using the chatGPT API as a realtime dungeon master.",
+      "description": "A simple text based game similar to dungeon and dragons using the chatGPT API as a realtime dungeon master."
+    },
+    {
+      "key": 5,
+      "name": "Personal Finance App",
+      "screenshotPaths": [
+        {"id": 1, "path": "snake stock photo.jpg"}
+      ],
+      "githubLinks": [
+        "https://github.com/kiffoh/Colombia_finances"
+      ],
+      "brief": "Performs automatic performs budget calculations for to optimse effort.",
+      "description": "A script which automatically tracks my spending and performs budget calculations for seamless determination on if I can afford specific activities on my travels."
+    }
+  ]
+  
