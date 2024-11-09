@@ -2,7 +2,6 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { useEffect, useRef, useState } from "react";
-import ToggleDisplayWarningToInDepthProject from "./ToggleDisplayWarningToInDepthProject";
 
 // Project data
 import projectData from "./project_data.json";
@@ -16,6 +15,7 @@ import { IoIosWarning } from "react-icons/io";
 import { BiUpArrowAlt } from "react-icons/bi";
 import { BiDownArrowAlt } from "react-icons/bi";
 import WarningForBackendDelay from "./WarningForBackendDelay";
+import DisplayPolorepoPopUp from "./DisplayPolyrepoPopUp";
 
 function App() {
   const overlay = useRef(null);
@@ -47,33 +47,45 @@ function App() {
   };
 
   const showDelayMessage = () => {
+    // Returns nothing if the warning is displayed
+    if (displayWarningToInDepthProject) return;
+
     setDisplayWarningToInDepthProject(true);
     setTimeout(() => setDelayInInitialProjectRequest(true), 300);
   };
 
-  const continueToLiveLink = (inDepthProject) => {
-    window.open(inDepthProject.liveLink.link, "_blank");
-    setDisplayWarningToInDepthProject(false);
-    setDelayInInitialProjectRequest(false);
-  };
-
-  const closeDelayMessage = () => {
-    setTimeout(() => setDelayInInitialProjectRequest(false), 3000);
-    setDisplayWarningToInDepthProject(false);
-  };
-
+  
   // Functions used to show warning from Home screen
   const openLiveLink = (event, project) => {
     event.stopPropagation();
     if (project.liveLink.delay) {
-    overlay.current.style.display = "block";
+      overlay.current.style.display = "block";
     setDisplayWarning({show: true, project});
-    } else {
+  } else {
     window.open(project.liveLink.link, "_blank");
     } 
   }
 
   // Functions related to the animation of the in-depth-projects
+  useEffect(() => {
+    // When delayInInitialProjectRequest is set to false (when cancel-btn is pressed in WarningForBackendDelay) the setDisplayWarningToInDepthProject is set accordingly
+    setDisplayWarningToInDepthProject(delayInInitialProjectRequest)
+  }, [delayInInitialProjectRequest])
+
+  /*
+  const githubLinkInDepthProjectRef = useRef(null);
+  const liveLinkInDepthProjectRef = useState(null);
+  useEffect(() => {
+    console.log("DisplayInDepthWarning: ", displayWarningToInDepthProject)
+    if (githubLinkInDepthProjectRef.current && liveLinkInDepthProjectRef.current) {
+      console.log("gitHubPicCursor: ", githubLinkInDepthProjectRef.current.style.cursor)
+      githubLinkInDepthProjectRef.current.style.cursor = (displayWarningToInDepthProject ? 'auto' : 'pointer');
+      console.log("liveLinkCursor: ", liveLinkInDepthProjectRef.current.style.cursor)
+      liveLinkInDepthProjectRef.current.style.cursor = (displayWarningToInDepthProject ? 'auto' : 'pointer');
+    }
+  }, [displayWarningToInDepthProject])
+
+  /*
   useEffect(() => {
     if (inDepthProjectContainerRef.current) {
       console.log(inDepthProjectContainerRef.current);
@@ -81,7 +93,7 @@ function App() {
         console.log("displayWarning");
         setMaxHeight(
           inDepthProjectContainerRef.current.scrollHeight +
-            warningContentContainer.current.scrollHeight
+          warningContentContainer.current.scrollHeight
         );
       } else if (inDepthProjectContentContainer.current) {
         console.log("NOT displayWarning");
@@ -92,8 +104,12 @@ function App() {
       }
     }
   }, [displayWarningToInDepthProject]);
+  */
 
   const toggleShowPolyrepoLinks = () => {
+    // Returns nothing if the warning is displayed
+    if (displayWarningToInDepthProject) return;
+
     if (showPolyrepoLinks === null) setShowPolyrepoLinks(true);
     else {
       setShowPolyrepoLinks((prev) => !prev);
@@ -113,16 +129,7 @@ function App() {
     overlay.current.style.display = "block";
   };
 
-  const redirectToAMultipleRepo = (redirectURL) => {
-    window.open(redirectURL, "_blank");
-    overlay.current.style.display = "none";
-    setMultipleRepos({});
-  };
-
-  const closeMultipleRepoBody = () => {
-    overlay.current.style.display = "none";
-    setMultipleRepos({});
-  };
+  
 
   return (
     <>
@@ -209,57 +216,12 @@ function App() {
       <div className="overlay" ref={overlay}>
         {
           // Dynamically shows this popup when the a github project with a polyrepo is selected
-          Object.keys(multipleRepos).length > 0 && (
-            <div className="multiple-repos-container">
-              <div className="multiple-repos-header">
-                <h2 className="multiple-repos-title">Polyrepos</h2>
-                <h2
-                  className="close-multiple-repos"
-                  onClick={closeMultipleRepoBody}
-                >
-                  X
-                </h2>
-              </div>
-              <div className="multiple-repos-body">
-                <p style={{ marginBottom: "0" }}>
-                  This project is <b>structured</b> as a{" "}
-                  <b>
-                    <span className="P">p</span>
-                    <span className="o">o</span>
-                    <span className="l">l</span>
-                    <span className="y">y</span>repo (multiple-repositories).
-                  </b>
-                </p>
-                <p>Please choose which repository you would like to view:</p>
-                <div className="repo-links">
-                  <div
-                    className="frontend-repo-body"
-                    onClick={() =>
-                      redirectToAMultipleRepo(multipleRepos.frontendURL)
-                    }
-                  >
-                    <p className="frontend-text">Frontend Repository</p>
-                    <FaComputer size={24} />
-                  </div>
-                  <div
-                    className="backend-repo-body"
-                    onClick={() =>
-                      redirectToAMultipleRepo(multipleRepos.backendURL)
-                    }
-                  >
-                    <p className="backend-text">Backend Repository</p>
-                    <FaServer size={24} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
+          <DisplayPolorepoPopUp multipleRepos={multipleRepos} setMultipleRepos={setMultipleRepos} overlay={overlay}/>
         }
 
-        {// Dynamically shows this popup when the a github project where the backend is hosted on render
-       
+        {// Dynamically shows this popup for a project where the backend is hosted on render
         displayWarning.show &&
-          <WarningForBackendDelay project={displayWarning.project} showWarning={displayWarning.show} setDisplayWarning={setDisplayWarning} overlay={overlay}/>
+          <WarningForBackendDelay project={displayWarning.project} setState={setDisplayWarning} overlay={overlay} inDepthProject={false}/>
         }
 
         {
@@ -294,7 +256,7 @@ function App() {
                         }`}
                         ref={inDepthProjectContentContainer}
                       >
-                        <div className="in-depth-project-links">
+                        <div className={`in-depth-project-links ${displayWarningToInDepthProject ? "no-pointer" : "" }`}>
                           {inDepthProject.githubLinks.length > 1 ? (
                             <div className="in-depth-repo-links">
                               <div className="github-link-container">
@@ -318,7 +280,10 @@ function App() {
                                   <div
                                     className={`frontend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
                                     style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
-                                    onClick={() => window.open(inDepthProject.githubLinks[0],"_blank")}
+                                    onClick={() => {
+                                      if (displayWarningToInDepthProject) return;
+                                      window.open(inDepthProject.githubLinks[0],"_blank")
+                                    }}
                                   >
                                     <p className="frontend-text">Frontend</p>
                                     <FaComputer size={20} />
@@ -328,7 +293,10 @@ function App() {
                                   <div
                                     className={`backend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
                                     style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
-                                    onClick={() => window.open(inDepthProject.githubLinks[1], "_blank")}
+                                    onClick={() => {
+                                      if (displayWarningToInDepthProject) return;
+                                      window.open(inDepthProject.githubLinks[1], "_blank")
+                                    }}
                                   >
                                     <FaServer size={20} />
                                     <p className="backend-text">Backend</p>
@@ -338,7 +306,7 @@ function App() {
                             </div>
                           ) : (
                             <div
-                              className="github-link-container"
+                              className={`github-link-container`}
                               onClick={() => window.open(inDepthProject.githubLinks[0], "_blank")}
                             >
                               <FaGithub
@@ -350,7 +318,7 @@ function App() {
                           )}
                           {inDepthProject.liveLink && (
                             <div
-                              className="live-link-container"
+                              className={`live-link-container ${displayWarningToInDepthProject ? "no-pointer" : "" }`}
                               onClick={() => {
                                 inDepthProject.liveLink.delay
                                   ? 
@@ -359,7 +327,10 @@ function App() {
                                   window.open(inDepthProject.liveLink.link, "_blank");
                               }}
                             >
-                              <IoIosLink size={24} className="link-img" />
+                              <IoIosLink  
+                                size={24}
+                                className="link-img"
+                              />
                             </div>
                           )}
                         </div>
@@ -372,14 +343,9 @@ function App() {
                       </h2>
                     </div>
                   </div>
-                  {delayInInitialProjectRequest ? ( // Warning provided to explain long initial wait time for appropriate projects
-                    <ToggleDisplayWarningToInDepthProject
-                      inDepthProject={inDepthProject}
-                      warningContentContainer={warningContentContainer}
-                      displayWarningToInDepthProject={displayWarningToInDepthProject}
-                      continueToLiveLink={continueToLiveLink}
-                      closeDelayMessage={closeDelayMessage}
-                    />
+                  {delayInInitialProjectRequest ? ( 
+                    // Warning provided to explain long initial wait time for appropriate projects
+                    <WarningForBackendDelay project={inDepthProject} setState={setDelayInInitialProjectRequest} overlay={overlay} inDepthProject={true}/>
                   ) : (
                     <div className="content-scroll-section">
                       <p className="in-depth-project-brief">
