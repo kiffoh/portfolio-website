@@ -53,44 +53,65 @@
 
 .P {
   color: rgba(240, 35, 35, 0.826);
+}
+
+.P.title {
   /*text-shadow: 0 0 1px darkred; */ /* Do I want to make the letters a darker colour? */
   -webkit-text-stroke: 1px darkred;
   text-shadow: 0 0 3px rgba(240, 35, 35, 0.826); 
 }
 
-
 .o {
   color: rgba(255, 166, 0, 0.831);
+}
+
+
+.o.title {
   -webkit-text-stroke: 1px rgb(133, 73, 0);
   text-shadow: 0 0 3px darkorange;
 }
 
 .r {
   color: rgba(160, 43, 228, 0.664);
+}
+
+.r.title {
   -webkit-text-stroke: 1px purple;
   text-shadow: 0 0 3px rgba(160, 43, 228, 0.664);
 }
 
 .t {
   color: navy;
+}
+
+.t.title {
   -webkit-text-stroke: 1px rgb(25, 0, 114);
   text-shadow: 0 0 3px navy
 }
 
 .f, .y {
   color: rgba(227, 39, 227, 0.669);
+}
+
+.f.title {
   -webkit-text-stroke: 1px rgb(139, 0, 139);
   text-shadow: 0 0 3px rgba(227, 39, 227, 0.669);
 }
 
 .l {
   color: rgba(64, 162, 236, 0.687);
+}
+
+.l.title {
   -webkit-text-stroke: 1px rgb(0, 85, 151);
   text-shadow: 0 0 3px rgba(64, 162, 236, 0.687);
 }
 
 .i {
   color: rgba(57, 176, 37, 0.753);
+}
+
+.i.title {
   -webkit-text-stroke: 1px rgb(21, 137, 0);
   text-shadow: 0 0 3px rgba(57, 176, 37, 0.753);
 }
@@ -490,7 +511,7 @@ body {
   line-height: 1.6;
 }
 
-.cancel-continue-btns-container {
+.cancel-continue-btns-container, .back-liveLink-btns-container {
   display: flex;
   justify-content: space-between;
 }
@@ -511,20 +532,36 @@ body {
   outline-color: darkred;
 }
 
-.continue-btn {
+.continue-btn, .liveLink-btn {
   color: green;
   border-color: green;
   transition: color 500ms ease, background-color 1000ms ease, border-color 500ms ease;
 }
 
-.continue-btn:hover {
+.continue-btn:hover, .liveLink-btn:hover {
   background-color: green;
   color: whitesmoke;
   border-color: lightgreen;
 }
 
-.continue-btn:focus, .continue-btn:focus-visible {
+.continue-btn:focus, .continue-btn:focus-visible, .liveLink-btn:focus, .liveLink-btn:focus-visible {
   outline-color: darkgreen;
+}
+
+.back-btn {
+  color:  rgb(11, 78, 179);
+  border-color: rgb(17, 68, 145);
+  transition: color 500ms ease, background-color 1000ms ease, border-color 500ms ease;
+}
+
+.back-btn:hover {
+  background-color: rgb(11, 78, 179);
+  color: whitesmoke;
+  border-color: lightblue;
+}
+
+.back-btn:focus, .back-btn:focus-visible {
+  outline-color: navy;
 }
 
 .fade-in {
@@ -650,17 +687,25 @@ body {
 }
   */
 
-.delay-warning-container.home-screen {
-  background-color: whitesmoke;
+  .delay-warning-container.body {
+    background-color: whitesmoke;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    border-radius: 6px;
+    position: fixed;
+  }
+
+.delay-warning-container.warning, .delay-warning-container.credentials {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  top: 50vh;
-  left: 50vw;
-  transform: translate(-50%, -50%);
-  border-radius: 6px;
   padding: 1em;
-  position: fixed;
+  box-sizing: border-box
+}
+
+.delay-warning-container.credentials {
+  justify-content: space-between;
+  height: 100%;
 }
 
 

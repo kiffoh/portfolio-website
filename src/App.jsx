@@ -15,6 +15,7 @@ import { FaGithub } from "react-icons/fa";
 import { IoIosWarning } from "react-icons/io";
 import { BiUpArrowAlt } from "react-icons/bi";
 import { BiDownArrowAlt } from "react-icons/bi";
+import WarningForBackendDelay from "./WarningForBackendDelay";
 
 function App() {
   const overlay = useRef(null);
@@ -65,23 +66,12 @@ function App() {
   const openLiveLink = (event, project) => {
     event.stopPropagation();
     if (project.liveLink.delay) {
-      overlay.current.style.display = "block";
-      setDisplayWarning({show: true, project});
+    overlay.current.style.display = "block";
+    setDisplayWarning({show: true, project});
     } else {
-      window.open(project.liveLink.link, "_blank");
+    window.open(project.liveLink.link, "_blank");
     } 
   }
-
-  const continueToLiveLinkFromHomeScreen = (project) => {
-    window.open(project.liveLink.link, "_blank");
-    setDisplayWarning({show: false, project: null});
-    overlay.current.style.display = "none";
-  };
-
-  const closeWarningDisplay = () => {
-    setTimeout(() => setDisplayWarning({show: false, project: null}), 300);
-    overlay.current.style.display = "none";
-  };
 
   // Functions related to the animation of the in-depth-projects
   useEffect(() => {
@@ -152,15 +142,15 @@ function App() {
         Welcome to <span className={"kiff's"}>Kiff's</span>
       </h1>
       <h1>
-        <span className={"P"}>P</span>
-        <span className={"o"}>o</span>
-        <span className={"r"}>r</span>
-        <span className={"t"}>t</span>
-        <span className={"f"}>f</span>
-        <span className={"o"}>o</span>
-        <span className={"l"}>l</span>
-        <span className={"i"}>i</span>
-        <span className={"o"}>o</span>
+        <span className={"P title"}>P</span>
+        <span className={"o title"}>o</span>
+        <span className={"r title"}>r</span>
+        <span className={"t title"}>t</span>
+        <span className={"f title"}>f</span>
+        <span className={"o title"}>o</span>
+        <span className={"l title"}>l</span>
+        <span className={"i title"}>i</span>
+        <span className={"o title"}>o</span>
       </h1>
 
       <div className="projects-container">
@@ -267,44 +257,9 @@ function App() {
         }
 
         {// Dynamically shows this popup when the a github project where the backend is hosted on render
+       
         displayWarning.show &&
-          <div
-          className={`delay-warning-container home-screen ${
-              displayWarning ? "fade-in" : "fade-out"
-          }`}
-          >
-          <h3 className="warning-title home-screen">
-              <IoIosWarning size={24} className="warning-icon home-screen"/> Warning
-          </h3>
-          <p className="warning-text">
-              Please expect an initial <b>backend delay (~1-2 minutes)</b> when
-              loading the live link for <i>{displayWarning.project.name}</i>.
-          </p>
-          {displayWarning.project.liveLink.credentials &&
-            <div className="credentials">  
-              <h3>Guest credentials</h3>
-              <p>Username: {displayWarning.project.liveLink.credentials.username}</p>
-              <p>Password: {displayWarning.project.liveLink.credentials.password}</p>
-            </div>
-          }
-          <p className="warning-text">
-              This delay occurs because the backend is hosted on Render’s free plan,
-              which powers down with inactivity. The delay will only affect the first
-              request; once the backend is active, subsequent responses will be
-              immediate.
-          </p>
-          <div className="cancel-continue-btns-container">
-              <button className="cancel-btn" onClick={closeWarningDisplay}>
-              Cancel
-              </button>
-              <button
-              className="continue-btn"
-              onClick={() => continueToLiveLinkFromHomeScreen(displayWarning.project)}
-              >
-              Continue
-              </button>
-          </div>
-          </div>
+          <WarningForBackendDelay project={displayWarning.project} showWarning={displayWarning.show} setDisplayWarning={setDisplayWarning} overlay={overlay}/>
         }
 
         {
@@ -351,9 +306,7 @@ function App() {
                                 />
                                 <div className="polyrepo-title-container">
                                   <h4
-                                    className={`polyrepo-title ${getAnimationClass(
-                                      showPolyrepoLinks
-                                    )}`}
+                                    className={`polyrepo-title ${getAnimationClass(showPolyrepoLinks)}`}
                                   >
                                     <span className="P">P</span>
                                     <span className="o">o</span>
@@ -363,22 +316,9 @@ function App() {
                                 </div>
                                 <div className="frontend-repo-container">
                                   <div
-                                    className={`frontend-repo-body ${getAnimationClass(
-                                      showPolyrepoLinks
-                                    )}`}
-                                    style={{
-                                      opacity:
-                                        getAnimationClass(showPolyrepoLinks)
-                                          .length > 0
-                                          ? "1"
-                                          : "0",
-                                    }}
-                                    onClick={() =>
-                                      window.open(
-                                        inDepthProject.githubLinks[0],
-                                        "_blank"
-                                      )
-                                    }
+                                    className={`frontend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
+                                    style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
+                                    onClick={() => window.open(inDepthProject.githubLinks[0],"_blank")}
                                   >
                                     <p className="frontend-text">Frontend</p>
                                     <FaComputer size={20} />
@@ -386,22 +326,9 @@ function App() {
                                 </div>
                                 <div className="backend-repo-container">
                                   <div
-                                    className={`backend-repo-body ${getAnimationClass(
-                                      showPolyrepoLinks
-                                    )}`}
-                                    style={{
-                                      opacity:
-                                        getAnimationClass(showPolyrepoLinks)
-                                          .length > 0
-                                          ? "1"
-                                          : "0",
-                                    }}
-                                    onClick={() =>
-                                      window.open(
-                                        inDepthProject.githubLinks[1],
-                                        "_blank"
-                                      )
-                                    }
+                                    className={`backend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
+                                    style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
+                                    onClick={() => window.open(inDepthProject.githubLinks[1], "_blank")}
                                   >
                                     <FaServer size={20} />
                                     <p className="backend-text">Backend</p>
@@ -412,12 +339,7 @@ function App() {
                           ) : (
                             <div
                               className="github-link-container"
-                              onClick={() => {
-                                window.open(
-                                  inDepthProject.githubLinks[0],
-                                  "_blank"
-                                );
-                              }}
+                              onClick={() => window.open(inDepthProject.githubLinks[0], "_blank")}
                             >
                               <FaGithub
                                 size={24}
@@ -431,11 +353,10 @@ function App() {
                               className="live-link-container"
                               onClick={() => {
                                 inDepthProject.liveLink.delay
-                                  ? showDelayMessage()
-                                  : window.open(
-                                      inDepthProject.liveLink.link,
-                                      "_blank"
-                                    );
+                                  ? 
+                                  showDelayMessage()
+                                  :
+                                  window.open(inDepthProject.liveLink.link, "_blank");
                               }}
                             >
                               <IoIosLink size={24} className="link-img" />
