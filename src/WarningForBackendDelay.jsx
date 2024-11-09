@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { IoIosWarning } from "react-icons/io";
 
-function WarningForBackendDelay({project, showWarning, setDisplayWarning, overlay}) {
+function WarningForBackendDelay({project, inDepthProject, setState, overlay}) {
     // Determines if guestCredentials are needed
     const guestCredentials = project.liveLink.credentials;
     const [continueToGuestCredentials, setContinueToGuestCredentials] = useState(false);
@@ -39,15 +39,22 @@ function WarningForBackendDelay({project, showWarning, setDisplayWarning, overla
 
     const toggleCancelBtn = () => {
         setSwitchFade(prev => !prev);
-        setTimeout(() => {
-            setDisplayWarning({show: false, project: null})
-            setContinueToGuestCredentials(false);
-            overlay.current.style.display = "none";
-        }, 300);
+        if (inDepthProject) {
+            setTimeout(() => {
+                setState(false)
+                setContinueToGuestCredentials(false);
+            }, 300);
+        } else {
+            setTimeout(() => {
+                setState({show: false, project: null})
+                setContinueToGuestCredentials(false);
+                overlay.current.style.display = "none";
+            }, 300);
+        }
     }
 
     return (
-        <div className="delay-warning-container body" style={{ width: dimensions.width, height: dimensions.height }}>
+        <div className={inDepthProject ? "" : `delay-warning-container body`} style={inDepthProject ? null : { width: dimensions.width, height: dimensions.height }}>
             {continueToGuestCredentials ? (
                 <div className={`delay-warning-container credentials ${switchFade ? "fade-in" : "fade-out"}`} >
                     <div className="credentials">  
