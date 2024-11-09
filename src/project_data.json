@@ -63,30 +63,6 @@
       ],
       "brief": "A browser-based Battleship game in JavaScript emphasising TDD.",
       "description": "A browser-based Battleship game in JavaScript emphasising TDD."
-    },
-    {
-      "key": 4,
-      "name": "Adventure Game",
-      "screenshotPaths": [
-        {"id": 1, "path": "snake stock photo.jpg"}
-      ],
-      "githubLinks": [
-        "https://github.com/kiffoh/text_based_adventure_game"
-      ],
-      "brief": "A simple text based game similar to dungeon and dragons using the chatGPT API as a realtime dungeon master.",
-      "description": "A simple text based game similar to dungeon and dragons using the chatGPT API as a realtime dungeon master."
-    },
-    {
-      "key": 5,
-      "name": "Personal Finance App",
-      "screenshotPaths": [
-        {"id": 1, "path": "snake stock photo.jpg"}
-      ],
-      "githubLinks": [
-        "https://github.com/kiffoh/Colombia_finances"
-      ],
-      "brief": "Performs automatic performs budget calculations for to optimse effort.",
-      "description": "A script which automatically tracks my spending and performs budget calculations for seamless determination on if I can afford specific activities on my travels."
     }
   ]
   
