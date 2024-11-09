@@ -152,7 +152,7 @@
   cursor: pointer;
 }
 
-.github-link-project, .link-img {
+.github-link-container, .live-link-container {
   cursor: pointer;
 }
 
@@ -174,10 +174,10 @@
 
 @keyframes change-to-italic {
   0% {
-    transform: skewX(0deg);  /* Start with no skew */
+    transform: skewX(0deg);
   }
   60% {
-    transform: skewX(-15deg);  /* Skew to imitate italic */
+    transform: skewX(-15deg); 
   }
   100% {
     font-style: italic;
@@ -358,6 +358,7 @@ body {
   color: var(--default-color-dark);
   opacity: 0;
   transform-origin: center center; /* Ensures scaling happens from center */
+  cursor: auto;
 }
 
 .polyrepo-title.appear {
@@ -706,6 +707,10 @@ body {
 .delay-warning-container.credentials {
   justify-content: space-between;
   height: 100%;
+}
+
+.no-pointer, .no-pointer * {
+  cursor: auto;
 }
 
 
