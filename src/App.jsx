@@ -240,122 +240,124 @@ function App() {
                       src={screenshot.path}
                       alt={screenshot.alt}
                       draggable={false}
-                    />
-                  ))}
+                      />
+                    ))}
                 </div>
 
                 <div className="dividing-line"></div>
 
                 <div className="content-container fade-in">
-                  <div className="in-depth-project-header">
-                    <h2 className="project-name">{inDepthProject.name}</h2>
-                    <div className="in-depth-project-header-right">
-                      <div
-                        className={`in-depth-project-content-container ${
-                          displayWarningToInDepthProject ? "fade-out" : "fade-in"
-                        }`}
-                        ref={inDepthProjectContentContainer}
-                      >
-                        <div className={`in-depth-project-links ${displayWarningToInDepthProject ? "no-pointer" : "" }`}>
-                          {inDepthProject.githubLinks.length > 1 ? (
-                            <div className="in-depth-repo-links">
-                              <div className="github-link-container">
-                                <FaGithub
-                                  size={24}
-                                  className="github-link-project"
-                                  alt="GitHub Logo"
-                                  onClick={toggleShowPolyrepoLinks}
-                                />
-                                <div className="polyrepo-title-container">
-                                  <h4
-                                    className={`polyrepo-title ${getAnimationClass(showPolyrepoLinks)}`}
-                                  >
-                                    <span className="P">P</span>
-                                    <span className="o">o</span>
-                                    <span className="l">l</span>
-                                    <span className="y">y</span>repo
-                                  </h4>
-                                </div>
-                                <div className="frontend-repo-container">
+                    {delayInInitialProjectRequest ? ( 
+                      // Warning provided to explain long initial wait time for appropriate projects
+                      <WarningForBackendDelay project={inDepthProject} setState={setDelayInInitialProjectRequest} overlay={overlay} inDepthProject={true}/>
+                    ) : (
+                      <>
+                        <div className="in-depth-project-header">
+                          <h2 className="project-name">{inDepthProject.name}</h2>
+                          <div className="in-depth-project-header-right">
+                            <div
+                              className={`in-depth-project-content-container ${
+                                displayWarningToInDepthProject ? "fade-out" : "fade-in"
+                              }`}
+                              ref={inDepthProjectContentContainer}
+                            >
+                              <div className={`in-depth-project-links ${displayWarningToInDepthProject ? "no-pointer" : "" }`}>
+                                {inDepthProject.githubLinks.length > 1 ? (
+                                  <div className="in-depth-repo-links">
+                                    <div className="github-link-container">
+                                      <FaGithub
+                                        size={24}
+                                        className="github-link-project"
+                                        alt="GitHub Logo"
+                                        onClick={toggleShowPolyrepoLinks}
+                                      />
+                                      <div className="polyrepo-title-container">
+                                        <h4
+                                          className={`polyrepo-title ${getAnimationClass(showPolyrepoLinks)}`}
+                                        >
+                                          <span className="P">P</span>
+                                          <span className="o">o</span>
+                                          <span className="l">l</span>
+                                          <span className="y">y</span>repo
+                                        </h4>
+                                      </div>
+                                      <div className="frontend-repo-container">
+                                        <div
+                                          className={`frontend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
+                                          style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
+                                          onClick={() => {
+                                            if (displayWarningToInDepthProject) return;
+                                            window.open(inDepthProject.githubLinks[0],"_blank")
+                                          }}
+                                        >
+                                          <p className="frontend-text">Frontend</p>
+                                          <FaComputer size={20} />
+                                        </div>
+                                      </div>
+                                      <div className="backend-repo-container">
+                                        <div
+                                          className={`backend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
+                                          style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
+                                          onClick={() => {
+                                            if (displayWarningToInDepthProject) return;
+                                            window.open(inDepthProject.githubLinks[1], "_blank")
+                                          }}
+                                        >
+                                          <FaServer size={20} />
+                                          <p className="backend-text">Backend</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
                                   <div
-                                    className={`frontend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
-                                    style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
+                                    className={`github-link-container`}
+                                    onClick={() => window.open(inDepthProject.githubLinks[0], "_blank")}
+                                  >
+                                    <FaGithub
+                                      size={24}
+                                      className="github-link-project"
+                                      alt="GitHub Logo"
+                                    />
+                                  </div>
+                                )}
+                                {inDepthProject.liveLink && (
+                                  <div
+                                    className={`live-link-container ${displayWarningToInDepthProject ? "no-pointer" : "" }`}
                                     onClick={() => {
-                                      if (displayWarningToInDepthProject) return;
-                                      window.open(inDepthProject.githubLinks[0],"_blank")
+                                      inDepthProject.liveLink.delay
+                                        ? 
+                                        showDelayMessage()
+                                        :
+                                        window.open(inDepthProject.liveLink.link, "_blank");
                                     }}
                                   >
-                                    <p className="frontend-text">Frontend</p>
-                                    <FaComputer size={20} />
+                                    <IoIosLink  
+                                      size={24}
+                                      className="link-img"
+                                    />
                                   </div>
-                                </div>
-                                <div className="backend-repo-container">
-                                  <div
-                                    className={`backend-repo-body ${getAnimationClass(showPolyrepoLinks)}`}
-                                    style={{opacity: getAnimationClass(showPolyrepoLinks).length > 0 ? "1" : "0"}}
-                                    onClick={() => {
-                                      if (displayWarningToInDepthProject) return;
-                                      window.open(inDepthProject.githubLinks[1], "_blank")
-                                    }}
-                                  >
-                                    <FaServer size={20} />
-                                    <p className="backend-text">Backend</p>
-                                  </div>
-                                </div>
+                                )}
                               </div>
                             </div>
-                          ) : (
-                            <div
-                              className={`github-link-container`}
-                              onClick={() => window.open(inDepthProject.githubLinks[0], "_blank")}
+                            <h2
+                              className="close-in-depth-project"
+                              onClick={closeInDepthProject}
                             >
-                              <FaGithub
-                                size={24}
-                                className="github-link-project"
-                                alt="GitHub Logo"
-                              />
-                            </div>
-                          )}
-                          {inDepthProject.liveLink && (
-                            <div
-                              className={`live-link-container ${displayWarningToInDepthProject ? "no-pointer" : "" }`}
-                              onClick={() => {
-                                inDepthProject.liveLink.delay
-                                  ? 
-                                  showDelayMessage()
-                                  :
-                                  window.open(inDepthProject.liveLink.link, "_blank");
-                              }}
-                            >
-                              <IoIosLink  
-                                size={24}
-                                className="link-img"
-                              />
-                            </div>
-                          )}
+                              X
+                            </h2>
+                          </div>
                         </div>
-                      </div>
-                      <h2
-                        className="close-in-depth-project"
-                        onClick={closeInDepthProject}
-                      >
-                        X
-                      </h2>
-                    </div>
-                  </div>
-                  {delayInInitialProjectRequest ? ( 
-                    // Warning provided to explain long initial wait time for appropriate projects
-                    <WarningForBackendDelay project={inDepthProject} setState={setDelayInInitialProjectRequest} overlay={overlay} inDepthProject={true}/>
-                  ) : (
-                    <div className="content-scroll-section">
-                      <p className="in-depth-project-brief">
-                        {inDepthProject.brief}
-                      </p>
-                      <p className="in-depth-project-description">
-                        {inDepthProject.description}
-                      </p>
-                    </div>
-                  )}
+                        <div className="content-scroll-section">
+                          <p className="in-depth-project-brief">
+                            {inDepthProject.brief}
+                          </p>
+                          <p className="in-depth-project-description">
+                            {inDepthProject.description}
+                          </p>
+                        </div>
+                      </>
+                    )}
                 </div>
               </div>
             </div>
