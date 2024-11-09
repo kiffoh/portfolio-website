@@ -714,6 +714,10 @@ body {
 }
 
 
+.w-full.h-full.object-contain.rounded-lg {
+  width: 100%;
+}
+
 @media (max-width: 600px) {
   .project-container {
     width: 70%;

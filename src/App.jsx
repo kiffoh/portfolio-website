@@ -16,6 +16,7 @@ import { BiUpArrowAlt } from "react-icons/bi";
 import { BiDownArrowAlt } from "react-icons/bi";
 import WarningForBackendDelay from "./WarningForBackendDelay";
 import DisplayPolorepoPopUp from "./DisplayPolyrepoPopUp";
+import ScreenshotGallery from "./ScreenshotGallery";
 
 function App() {
   const overlay = useRef(null);
@@ -167,17 +168,7 @@ function App() {
             key={project.key}
             onClick={() => viewProjectInDepth(project)}
           >
-            <div className="screenshot-container">
-              {project.screenshotPaths?.map((screenshot) => (
-                <img
-                  key={screenshot.id}
-                  className="project-screenshot"
-                  src={screenshot.path}
-                  alt={screenshot.alt}
-                  draggable={false}
-                />
-              ))}
-            </div>
+            <ScreenshotGallery project={project} />
 
             <div className="project-header">
               <div className="project-top-left">
