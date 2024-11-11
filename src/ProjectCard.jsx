@@ -59,7 +59,7 @@ const ProjectCard = ({ project, viewProjectInDepth, openLiveLink, toggleMultiple
                 currentScreenshotsRef.removeEventListener("scroll", togglePreventInterval);
             }
             if (scrollTimeout.current) {
-                clearTimeout(scrollTimeout.current); // Clear timeout on cleanup
+                clearTimeout(scrollTimeout.current);
             }
         }
     }, [])
