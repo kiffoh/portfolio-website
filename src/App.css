@@ -489,6 +489,10 @@ body {
   font-size: 24px;
   position: relative;
   justify-content: center;
+  position: relative;
+}
+
+.warning-title-text {
   animation: glowYellow 3s infinite;
 }
 
@@ -502,10 +506,6 @@ body {
   100% {
     -webkit-text-stroke: 1px transparent;
   }
-}
-
-.warning-icon.home-screen {
-  right: 100%;
 }
 
 .warning-text {
@@ -707,6 +707,17 @@ body {
 .delay-warning-container.credentials {
   justify-content: space-between;
   height: 100%;
+}
+
+.credentials-header {
+  position: relative;
+}
+
+.close-in-depth-project-warning {
+  position: absolute;
+  color: var(--default-color-dark);
+  right: 0;
+  cursor: pointer;
 }
 
 .no-pointer, .no-pointer * {
