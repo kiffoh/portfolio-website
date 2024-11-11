@@ -16,8 +16,11 @@ import { BiUpArrowAlt } from "react-icons/bi";
 import { BiDownArrowAlt } from "react-icons/bi";
 import WarningForBackendDelay from "./WarningForBackendDelay";
 import DisplayPolorepoPopUp from "./DisplayPolyrepoPopUp";
+import ProjectCard from "./ProjectCard";
 
 function App() {
+  
+
   const overlay = useRef(null);
   const [multipleRepos, setMultipleRepos] = useState({});
   const [inDepthProject, setInDepthProject] = useState({});
@@ -128,8 +131,7 @@ function App() {
     setMultipleRepos({ frontendURL, backendURL });
     overlay.current.style.display = "block";
   };
-
-  
+    
 
   return (
     <>
@@ -162,54 +164,7 @@ function App() {
 
       <div className="projects-container">
         {projectData.map((project) => (
-          <div
-            className="project-div"
-            key={project.key}
-            onClick={() => viewProjectInDepth(project)}
-          >
-            <div className="screenshot-container">
-              {project.screenshotPaths?.map((screenshot) => (
-                <img
-                  key={screenshot.id}
-                  className="project-screenshot"
-                  src={screenshot.path}
-                  alt={screenshot.alt}
-                  draggable={false}
-                />
-              ))}
-            </div>
-
-            <div className="project-header">
-              <div className="project-top-left">
-                <h2 className="project-name">{project.name}</h2>
-              </div>
-              <div className="project-top-right">
-                {project.liveLink && (
-                  <IoIosLink
-                    size={24}
-                    className="link-img"
-                    onClick={(event) => openLiveLink(event, project)}
-                  />
-                )}
-                <FaGithub
-                  size={24}
-                  className="github-link-project"
-                  alt="GitHub Logo"
-                  onClick={(event) => {
-                    project.githubLinks.length > 1
-                      ? toggleMultipleRepos(
-                          project.githubLinks[0],
-                          project.githubLinks[1],
-                          event
-                        )
-                      : window.open(project.githubLinks[0], "_blank");
-                  }}
-                />
-              </div>
-            </div>
-            <p className="project-brief">{project.brief}</p>
-            <p className="view-more">Click to view more</p>
-          </div>
+          <ProjectCard key={project.key} project={project} viewProjectInDepth={viewProjectInDepth} openLiveLink={openLiveLink} toggleMultipleRepos={toggleMultipleRepos} />
         ))}
       </div>
 
@@ -345,7 +300,7 @@ function App() {
                   </div>
                   {delayInInitialProjectRequest ? ( 
                     // Warning provided to explain long initial wait time for appropriate projects
-                    <WarningForBackendDelay project={inDepthProject} setState={setDelayInInitialProjectRequest} overlay={overlay} inDepthProject={true}/>
+                    <WarningForBackendDelay project={inDepthProject} setState={setDelayInInitialProjectRequest} overlay={overlay} inDepthProject={true} closeInDepthProject={closeInDepthProject}/>
                   ) : (
                     <div className="content-scroll-section">
                       <p className="in-depth-project-brief">
