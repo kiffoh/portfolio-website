@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { IoIosWarning } from "react-icons/io";
 
-function WarningForBackendDelay({project, inDepthProject, setState, overlay}) {
+function WarningForBackendDelay({project, inDepthProject, setState, overlay, closeInDepthProject}) {
     // Determines if guestCredentials are needed
     const guestCredentials = project.liveLink.credentials;
     const [continueToGuestCredentials, setContinueToGuestCredentials] = useState(false);
@@ -58,7 +58,11 @@ function WarningForBackendDelay({project, inDepthProject, setState, overlay}) {
             {continueToGuestCredentials ? (
                 <div className={`delay-warning-container credentials ${switchFade ? "fade-in" : "fade-out"}`} >
                     <div className="credentials">  
-                        <h3>Guest credentials</h3>
+                        <div className="credentials-header">
+                            <h3>Guest credentials
+                                {inDepthProject && <span className="close-in-depth-project-warning" onClick={closeInDepthProject}>X</span>}
+                            </h3>
+                        </div>
                         <p>Please use the following credentials to explore the capabilities of the app:</p>
                         <p><b>Username:</b> {project.liveLink.credentials.username}</p>
                         <p><b>Password:</b> {project.liveLink.credentials.password}</p>
@@ -74,7 +78,9 @@ function WarningForBackendDelay({project, inDepthProject, setState, overlay}) {
                     switchFade ? "fade-out" : "fade-in"
                 }`}>
                     <h3 className="warning-title home-screen">
-                        <IoIosWarning size={24} className="warning-icon home-screen"/> Warning
+                        <IoIosWarning size={24} className="warning-icon home-screen"/>
+                        <span className="warning-title-text"> Warning</span>
+                        {inDepthProject && <span className="close-in-depth-project-warning" onClick={closeInDepthProject}>X</span>}
                     </h3>
                     <p className="warning-text">
                         Please expect an initial <b>backend delay (~1-2 minutes)</b> when
